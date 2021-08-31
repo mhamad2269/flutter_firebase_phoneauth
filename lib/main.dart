@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "2 Factor Authentication",
+      title: "Firebase Authentication",
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

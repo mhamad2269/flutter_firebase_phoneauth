@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "2 Factor Authentication",
+                    "Firebase Authentication",
                     style: TextStyle(
                       fontSize: 50,
                       color: Color.fromARGB(255, 11, 11, 11),

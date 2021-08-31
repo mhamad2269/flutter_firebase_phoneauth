@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +16,10 @@ class Verify extends StatefulWidget {
 }
 
 class _VerifyState extends State<Verify> {
-  final mobController = TextEditingController();
-
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseMethods _firebaseMethods = FirebaseMethods();
 
+  final _mobController = TextEditingController();
   final _otpController = TextEditingController();
   final _pinPutFocusNode = FocusNode();
 
@@ -35,7 +33,7 @@ class _VerifyState extends State<Verify> {
 
   bool isButton = false;
   bool _isOtpSent = false;
-  bool isLoading = false;
+  bool _isLoading = false;
 
   Future sendOtp({required String mob}) async {
     await auth.verifyPhoneNumber(
@@ -62,6 +60,15 @@ class _VerifyState extends State<Verify> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: const Text(
+          "Firebase Phone Auth",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
@@ -69,20 +76,26 @@ class _VerifyState extends State<Verify> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              if (_mobController.text.length >= 10 && _isOtpSent)
+                Container(
+                  margin: const EdgeInsets.all(40.0),
+                  child: Text(
+                    "+91 ${_mobController.text}",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
               _isOtpSent
                   ? PinPut(
                       withCursor: true,
                       fieldsCount: 6,
                       onChanged: (val) {
-                        if (val.length > 5) {
-                          setState(() {
+                        setState(() {
+                          if (val.length > 5) {
                             isButton = true;
-                          });
-                        } else {
-                          setState(() {
+                          } else {
                             isButton = false;
-                          });
-                        }
+                          }
+                        });
                       },
                       autofocus: _isOtpSent,
                       fieldsAlignment: MainAxisAlignment.spaceAround,
@@ -123,31 +136,34 @@ class _VerifyState extends State<Verify> {
                             Icons.phone,
                             color: Colors.black,
                           ),
-                          prefix: Text("+91")),
+                          prefix: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text("+91 "),
+                          )),
                       autofocus: true,
-                      controller: mobController,
+                      controller: _mobController,
                       keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
                       maxLength: 10,
                       style: const TextStyle(fontSize: 25),
                       onChanged: (val) {
-                        if (val.length > 9) {
-                          setState(() {
+                        setState(() {
+                          if (val.length > 9) {
                             isButton = true;
-                          });
-                        } else {
-                          setState(() {
+                          } else {
                             isButton = false;
-                          });
-                        }
+                          }
+                        });
                       },
                     ),
+              SizedBox(
+                height: 30,
+              ),
               ElevatedButton(
                 onPressed: isButton
                     ? _isOtpSent
                         ? () {
                             setState(() {
-                              isLoading = true;
+                              _isLoading = true;
                             });
                             _firebaseMethods
                                 .verifyOtp(
@@ -160,16 +176,15 @@ class _VerifyState extends State<Verify> {
                                       builder: (builder) => Home()));
                             });
                             setState(() {
-                              isLoading = false;
+                              _isLoading = false;
                             });
                           }
                         : () {
                             setState(() {
-                              isLoading = true;
+                              _isLoading = true;
                             });
-                            final mobile = mobController.text;
-                            // print(
-                            //     "+91 ${mobile.substring(0, 5)} ${mobile.substring(5, 10)}");
+                            final mobile = _mobController.text;
+
                             sendOtp(
                                     mob:
                                         "+91 ${mobile.substring(0, 5)} ${mobile.substring(5, 10)}")
@@ -177,12 +192,12 @@ class _VerifyState extends State<Verify> {
                               isButton = false;
                             });
                             setState(() {
-                              isLoading = false;
+                              _isLoading = false;
                             });
                           }
                     : null,
                 style: ButtonStyle(
-                  padding: !isLoading
+                  padding: !_isLoading
                       ? MaterialStateProperty.all(
                           EdgeInsets.symmetric(horizontal: 25, vertical: 5))
                       : MaterialStateProperty.all(EdgeInsets.all(25)),
@@ -199,7 +214,7 @@ class _VerifyState extends State<Verify> {
                     ),
                   ),
                 ),
-                child: isLoading
+                child: _isLoading
                     ? CircularProgressIndicator(
                         color: Colors.white,
                       )
@@ -208,6 +223,9 @@ class _VerifyState extends State<Verify> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
+              ),
+              SizedBox(
+                height: 30,
               ),
             ],
           ),
