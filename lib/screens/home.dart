@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../api/sharedPref.dart';
+import '../api/shared_preferences.dart';
 import '../main.dart';
 import '../resources/firebase_methods.dart';
 import '../screens/verify.dart';
@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   String email = "";
   String phoneNumber = "";
   bool emailVerified = false;
-  FirebaseMethods _firebaseMethods = FirebaseMethods();
+  final FirebaseMethods _firebaseMethods = FirebaseMethods();
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
         centerTitle: true,
         title: Text(
           name,
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -65,16 +65,16 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 _firebaseMethods.signOut().then((value) {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (builder) => MyApp()));
+                      MaterialPageRoute(builder: (builder) => const MyApp()));
                 });
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.logout,
                 color: Colors.black,
               ))
         ],
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Column(
@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
               AnimatedContainer(
                 width: 150,
                 height: 150,
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(colors: [
                     Colors.grey.withOpacity(0.4),
@@ -97,7 +97,7 @@ class _HomeState extends State<Home> {
                   ]),
                   shape: BoxShape.circle,
                 ),
-                duration: Duration(seconds: 10),
+                duration: const Duration(seconds: 10),
                 child: ClipOval(
                   child: Image.network(
                     url,
@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Row(
@@ -116,20 +116,20 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     email.length > 5 ? email : "Email Not Authenticated",
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   ),
                   emailVerified || phoneNumber.length > 5 && email.length > 5
-                      ? Icon(
+                      ? const Icon(
                           Icons.done,
                           color: Colors.greenAccent,
                         )
-                      : Icon(
+                      : const Icon(
                           Icons.clear,
                           color: Colors.redAccent,
                         )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Row(
@@ -138,31 +138,31 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     phoneNumber.length > 5 ? phoneNumber : "Not Authenticated",
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   ),
                   phoneNumber.length > 5
-                      ? Icon(
+                      ? const Icon(
                           Icons.done,
                           color: Colors.greenAccent,
                         )
-                      : Icon(
+                      : const Icon(
                           Icons.clear,
                           color: Colors.redAccent,
                         )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               ElevatedButton(
-                  child: Text("Authenticate"),
+                  child: const Text("Authenticate"),
                   onPressed: () {
                     _firebaseMethods.signOut().then((value) {
                       SharedPref.setUserDetails(
                               name: name, email: email, url: url)
                           .then((value) {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (builder) => Verify()));
+                            MaterialPageRoute(builder: (builder) => const Verify()));
                       });
                     });
                   }),

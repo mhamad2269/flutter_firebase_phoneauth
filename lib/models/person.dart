@@ -21,9 +21,9 @@ class Person {
   }
 
   Person.fromMap(Map<String, dynamic> mapData) {
-    this.uid = mapData["uid"];
-    this.name = mapData["name"];
-    this.email = mapData["email"];
-    this.profilePhoto = mapData["profilePhoto"];
+    uid = mapData["uid"];
+    name = mapData["name"];
+    email = mapData["email"];
+    profilePhoto = mapData["profilePhoto"];
   }
 }

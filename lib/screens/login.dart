@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
-import '../screens/verify.dart';
 import '../resources/firebase_methods.dart';
 import '../screens/home.dart';
+import '../screens/verify.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  FirebaseMethods _firebaseMethods = FirebaseMethods();
+  final FirebaseMethods _firebaseMethods = FirebaseMethods();
 
   bool isLoginPressed = false;
 
@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) {
-                return Home();
+                return const Home();
               }),
             );
           });
@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) {
-              return Home();
+              return const Home();
             }),
           );
         }
@@ -55,10 +55,10 @@ class _LoginState extends State<Login> {
         child: Stack(
           children: [
             if (isLoginPressed)
-              Center(
+              const Center(
                 child: CircularProgressIndicator(),
               ),
-            Container(
+            SizedBox(
               width: double.infinity,
               height: double.infinity,
               child: Column(
@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
                       color: Color.fromARGB(255, 11, 11, 11),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   InkWell(
@@ -87,18 +87,17 @@ class _LoginState extends State<Login> {
                       ),
                       child: Padding(
                         padding:
-                            EdgeInsets.symmetric(vertical: 12, horizontal: 40),
+                            const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 40),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
-                              child: Image.asset(
-                                "assets/images/google.png",
-                                fit: BoxFit.cover,
-                              ),
+                            Image.asset(
+                              "assets/images/google.png",
+                              fit: BoxFit.cover,
                             ),
-                            Expanded(
+                            const Expanded(
                               child: Text(
                                 "Log in with Google",
                                 textAlign: TextAlign.center,
@@ -110,7 +109,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   InkWell(
@@ -118,7 +117,8 @@ class _LoginState extends State<Login> {
                     highlightColor: Colors.blue.withAlpha(130),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (builder) => Verify()));
+                          MaterialPageRoute(
+                              builder: (builder) => const Verify()));
                     },
                     borderRadius: BorderRadius.circular(35),
                     child: Container(
@@ -129,11 +129,12 @@ class _LoginState extends State<Login> {
                       ),
                       child: Padding(
                         padding:
-                            EdgeInsets.symmetric(vertical: 18, horizontal: 40),
+                            const EdgeInsets.symmetric(
+                            vertical: 18, horizontal: 40),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(Icons.phone),
                             Expanded(
                               child: Text(

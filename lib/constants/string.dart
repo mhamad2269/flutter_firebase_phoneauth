@@ -1,9 +1,8 @@
 // Collections Strings
-const String USERS_COLLECTION = "users";
+const String usersCollection = "users";
 
 // Shared Prefrences
-const String USER_DETAILS = "UserDetails";
- 
+const String userDetails = "UserDetails";
 
 // Field Values
-const String EMAIL_FIELD = "email";
+const String emailField = "email";

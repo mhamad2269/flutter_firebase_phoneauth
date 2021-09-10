@@ -17,7 +17,7 @@ class Verify extends StatefulWidget {
 
 class _VerifyState extends State<Verify> {
   FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseMethods _firebaseMethods = FirebaseMethods();
+  final FirebaseMethods _firebaseMethods = FirebaseMethods();
 
   final _mobController = TextEditingController();
   final _otpController = TextEditingController();
@@ -41,11 +41,7 @@ class _VerifyState extends State<Verify> {
       verificationCompleted: (PhoneAuthCredential credential) async {
         await auth.signInWithCredential(credential);
       },
-      verificationFailed: (FirebaseAuthException e) {
-        if (e.code == 'invalid-phone-number') {
-          print('The provided phone number is not valid.');
-        }
-      },
+      verificationFailed: (FirebaseAuthException e) {},
       codeSent: (String verificationId, int? resendToken) async {
         Fluttertoast.showToast(msg: "Otp Sent");
         setState(() {
@@ -81,7 +77,7 @@ class _VerifyState extends State<Verify> {
                   margin: const EdgeInsets.all(40.0),
                   child: Text(
                     "+91 ${_mobController.text}",
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
               _isOtpSent
@@ -101,7 +97,7 @@ class _VerifyState extends State<Verify> {
                       fieldsAlignment: MainAxisAlignment.spaceAround,
                       textStyle:
                           const TextStyle(fontSize: 25.0, color: Colors.black),
-                      eachFieldMargin: EdgeInsets.all(0),
+                      eachFieldMargin: const EdgeInsets.all(0),
                       eachFieldWidth: 45.0,
                       eachFieldHeight: 55.0,
                       focusNode: _pinPutFocusNode,
@@ -155,7 +151,7 @@ class _VerifyState extends State<Verify> {
                         });
                       },
                     ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               ElevatedButton(
@@ -173,7 +169,7 @@ class _VerifyState extends State<Verify> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (builder) => Home()));
+                                      builder: (builder) => const Home()));
                             });
                             setState(() {
                               _isLoading = false;
@@ -199,14 +195,14 @@ class _VerifyState extends State<Verify> {
                 style: ButtonStyle(
                   padding: !_isLoading
                       ? MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 5))
-                      : MaterialStateProperty.all(EdgeInsets.all(25)),
+                          const EdgeInsets.symmetric(horizontal: 25, vertical: 5))
+                      : MaterialStateProperty.all(const EdgeInsets.all(25)),
                   backgroundColor: isButton
                       ? MaterialStateProperty.all(
                           Colors.lightBlue,
                         )
                       : MaterialStateProperty.all(
-                          Color.fromARGB(125, 225, 225, 225),
+                          const Color.fromARGB(125, 225, 225, 225),
                         ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -215,16 +211,16 @@ class _VerifyState extends State<Verify> {
                   ),
                 ),
                 child: _isLoading
-                    ? CircularProgressIndicator(
+                    ? const CircularProgressIndicator(
                         color: Colors.white,
                       )
                     : Text(
                         _isOtpSent ? "Verify OTP" : "Send OTP",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
             ],

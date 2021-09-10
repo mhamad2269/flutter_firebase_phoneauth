@@ -9,16 +9,18 @@ import '../screens/login.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  FirebaseMethods _firebaseMethods = FirebaseMethods();
+  final FirebaseMethods _firebaseMethods = FirebaseMethods();
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +33,9 @@ class _MyAppState extends State<MyApp> {
         future: _firebaseMethods.getCurrentUser(),
         builder: (context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.hasData) {
-            return Home();
+            return const Home();
           } else {
-            return Login();
+            return const Login();
           }
         },
       ),
