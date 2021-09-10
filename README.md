@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">🌟 Flutter Firebase PhoneAuth 🌟</h1>
-<p align="center">Flutter Application for #Hack20 based on theme Saving the Planet, This app is for showing you what is the current rate of pollution on google map</p>
+<p align="center">App to Authenticate User where ever it required</p>
 
 <p align="center">
 <a href="https://github.com/Rohit19060/flutter_firebase_phoneauth/blob/master/LICENSE" title="License">
